@@ -35,10 +35,10 @@ async def get_records(indexes: str):
     
 
 @app.post('/api/v1/database')
-async def add_records(data: List[Record]):
-    for rec in data:
-        db.append(rec)
-    Out = open("simple_data.json", "w")
-    json.dump(Out, db)
-    Out.close()
+async def add_records(new_data: List[Record]):
+    for rec in new_data:
+        for col in db:
+            db[col][str(len(db[col]))] = dict(rec)[col]
     return
+
+
